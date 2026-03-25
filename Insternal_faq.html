@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bananaz Onboarding FAQ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fb;color:#1a1a2e;line-height:1.6}
+.wrap{max-width:880px;margin:0 auto;padding:32px 16px 48px}
+.hdr{text-align:center;margin-bottom:36px}
+.hdr .tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#6366f1;margin-bottom:6px}
+.hdr h1{font-size:30px;font-weight:800;letter-spacing:-0.5px;color:#1a1a2e}
+.hdr p{font-size:14px;color:#6b7280;margin-top:6px}
+.search-box{position:relative;margin-bottom:20px}
+.search-box svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.4}
+.search-box input{width:100%;padding:13px 16px 13px 46px;font-size:14px;border:1.5px solid #e0e0e0;border-radius:12px;background:#fff;outline:none;color:#1a1a2e;transition:border-color .2s}
+.search-box input:focus{border-color:#6366f1}
+.search-box .count{font-size:12px;color:#9ca3af;margin-top:5px;padding-left:4px;display:none}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.pill{padding:6px 16px;font-size:12.5px;font-weight:600;border-radius:20px;border:1.5px solid #e0e0e0;cursor:pointer;background:#fff;color:#4b5563;transition:all .2s;white-space:nowrap}
+.pill:hover{border-color:#c7c7cc}
+.pill.active{background:#eef2ff;color:#6366f1;border-color:#c7d2fe}
+.new-badge{display:inline-block;font-size:9px;font-weight:700;background:#10b981;color:#fff;padding:1px 6px;border-radius:8px;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.5px}
+.section{margin-bottom:24px;border-radius:14px;border:1.5px solid #e5e7eb;overflow:hidden;background:#fff}
+.section.hidden{display:none}
+.sec-head{padding:14px 20px;font-size:15px;font-weight:700;background:#fafbfc;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0}
+.sec-head .badge{font-size:11px;color:#9ca3af;font-weight:400;margin-left:6px}
+.faq-item{border-bottom:1px solid #f3f4f6}
+.faq-item:last-child{border-bottom:none}
+.faq-item.hidden{display:none}
+.faq-q{width:100%;display:flex;align-items:flex-start;justify-content:space-between;padding:16px 20px;background:none;border:none;cursor:pointer;text-align:left;gap:12px;font-size:14px;font-weight:600;color:#1a1a2e;line-height:1.55;font-family:inherit}
+.faq-q:hover{background:#fafbfc}
+.faq-q svg{flex-shrink:0;margin-top:3px;transition:transform .25s;color:#9ca3af}
+.faq-q.open svg{transform:rotate(180deg)}
+.faq-a{padding:0 20px 18px 20px;font-size:13.5px;line-height:1.75;color:#4b5563;max-width:740px;display:none}
+.faq-a.open{display:block}
+.empty{text-align:center;padding:56px 20px;color:#9ca3af}
+.empty .ico{font-size:36px;margin-bottom:10px}
+.foot{text-align:center;margin-top:36px;padding:16px 0;border-top:1px solid #f0f0f0;font-size:12px;color:#b0b0b0}
+@media(max-width:600px){.hdr h1{font-size:24px}.pills{gap:6px}.pill{padding:5px 12px;font-size:11.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="tag">Bananaz Knowledge Base</div>
+    <h1>Onboarding FAQ</h1>
+    <p id="subtitle">64 answers compiled from onboarding sessions, technical reviews &amp; rule development workshops</p>
+  </div>
+
+  <div class="search-box">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 12L16 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Search questions and answers..." autocomplete="off">
+    <div class="count" id="searchCount"></div>
+  </div>
+
+  <div class="pills" id="pills"></div>
+
+  <div id="faqContainer"></div>
+  <div class="empty" id="emptyState" style="display:none"><div class="ico">🔍</div><div>No matching questions found. Try a different search term.</div></div>
+
+  <div class="foot">Last updated: March 24, 2026 · Compiled from 15+ onboarding sessions (Watlow, HSE AG, Ortal Heat) · Contact support@bananaz.ai</div>
+</div>
+
+<script>
+const DATA=[
+{cat:"Installation & Setup",icon:"⚙️",items:[
+{q:"How do I install the Bananaz desktop application?",a:"Download the installer from go.bananaz.ai (navigate to your profile menu → Download App) or request the .exe link from your CSM. Right-click the installer and select 'Run as Administrator.' SolidWorks must be closed before installation. After installation, the Bananaz agent will appear as a tray icon in your system tray (bottom-right corner of your screen)."},
+{q:"How do I log in for the first time?",a:"You'll receive an activation email from notifications@bananaz.ai or support@bananaz.ai. If you don't see it, check your spam/junk folder. Go to go.bananaz.ai, enter your email, and click 'Forgot Password' to trigger a new activation link. Set your password, then use those credentials in both the web app and the desktop agent. The agent remembers your login for approximately six months."},
+{q:"How do I verify that the Bananaz SolidWorks add-in is installed correctly?",a:"Open SolidWorks after installing the desktop app. You should see a Bananaz tab/panel on the right side of the SolidWorks interface. If it doesn't appear, close SolidWorks completely, restart the Bananaz desktop agent from C:\\Bananaz\\PDM Agent, then reopen SolidWorks."},
+{q:"How do I connect the agent to my PDM vault?",a:"Right-click the Bananaz tray icon → Open Settings. Select the correct vault from the dropdown. If your vault isn't listed or the agent defaulted to a sandbox/test vault, select the production vault and click OK. You may need to quit and restart the Bananaz app after changing vaults for the change to take effect."},
+{q:"How do I check for agent updates?",a:"Right-click the Bananaz tray icon and select 'Check for Updates.' The update installs silently — you typically won't see a popup until it's complete. Your current version number is visible in the agent settings window. To install a specific version manually, close SolidWorks first, uninstall the current version, then install the new .exe provided by the Bananaz team."},
+{q:"SolidWorks closes/crashes when I upload a file through the add-in. What's going on?",a:"This is a known bug in certain agent versions (notably 7.6 and earlier). The file may still upload successfully despite the crash, but any unsaved work will be lost. Workaround: always save your work before clicking 'Get Active File and Upload.' A fix is expected in version 7.7 or the next release. Updates are automatic — you'll be notified when the fix is available. For assemblies specifically, try uploading single drawings instead until the fix ships."},
+{q:"How do I perform a clean reinstall of the Bananaz agent?",a:"Step 1: Close SolidWorks completely. Step 2: Uninstall Bananaz from Windows Settings → Apps → Installed Apps. Step 3: Delete the C:\\Bananaz folder. Step 4: Delete the Bananaz folder inside %appdata% (paste %appdata% into File Explorer, find the Bananaz folder, delete it). Step 5: Open Task Manager (Ctrl+Shift+Esc), search for any Bananaz processes, and end them. Step 6: Go to go.bananaz.ai, log in, click your profile icon → Download App. Step 7: Right-click the downloaded installer and select 'Run as Administrator.' Step 8: After installation, launch the agent from C:\\Bananaz\\PDM Agent, sign in, go to Settings, select your PDM vault, then quit and restart the agent. This procedure resolves most connectivity and upload issues, especially those caused by antivirus interference.",isNew:true},
+{q:"Why does the agent update go through multiple versions instead of jumping to the latest?",a:"The auto-updater may step through intermediate versions (e.g., 7.6 → 7.7 → 7.8) instead of jumping directly to the latest. This is normal behavior. Let it finish each step. If it appears stuck or isn't reaching the latest version, try a clean reinstall using the latest installer from go.bananaz.ai.",isNew:true}
+]},
+{cat:"File Upload & Syncing",icon:"🔄",items:[
+{q:"How does file syncing work between PDM and Bananaz?",a:"When you check in a file in PDM, the Bananaz agent detects the change and syncs it to the Bananaz platform automatically in the background. You'll see a syncing indicator on the tray icon. Once synced, the file appears in your Recent Activity on the Bananaz web dashboard. The sync is live but can have small delays, especially for first-time uploads or large assemblies."},
+{q:"What are the three ways to get files into Bananaz?",a:"Method 1 (fastest for single files): Open the file in SolidWorks → Bananaz tab → 'Get Active File and Upload.' Method 2 (batch via add-in): Use the plus sign in the SolidWorks add-in to add multiple file rows and upload as a batch — files must be on your local drive. Method 3 (comparison upload): Go to go.bananaz.ai/comparisons/new, Pack-and-Go two versions as ZIP files, and upload them for side-by-side comparison. For PDM Professional users, check-in triggers auto-sync. For PDM Standard, you must use one of these manual methods."},
+{q:"When I upload a drawing, does it also upload the 3D model?",a:"Yes. Uploading a drawing automatically pulls in the associated 3D parts and assemblies. Uploading an assembly uploads all child parts. However, uploading a child part does NOT upload parent assemblies or drawings. The hierarchy flows downward only."},
+{q:"Why is the upload/sync taking so long?",a:"Several factors affect sync speed: (1) First-time syncs are slower because nothing is cached — subsequent syncs improve. (2) Large assemblies with many dependencies take longer. (3) VPN connections add latency. (4) Internet speed matters — 5 Mbps upload minimum is recommended. You can check your connectivity with the built-in diagnostics tool."},
+{q:"What does the Upload Queue show?",a:"Right-click the Bananaz tray icon to view the upload queue. It shows files being synced, their progress, and completion status. Note: 100% progress means uploaded to the platform, but extraction/processing happens separately. The entry disappears only when fully complete. You can also cancel stuck jobs from this view."},
+{q:"What is the Migration Tool and when should I use it?",a:"The Migration Tool (tray icon → Open Settings → Migration tab) lets you bulk-sync entire folders from PDM into Bananaz. Ideal for pre-loading working directories. Enter PDM vault credentials, Bananaz credentials, and add folder paths. Options: latest version, last N versions, or last N revisions. Keep the command prompt open during migration — don't shut down your machine."},
+{q:"Can I upload STEP files or PDFs directly?",a:"Bananaz only works with native SolidWorks files (.sldprt, .sldasm, .slddrw) for full accuracy. STEP files must be saved as .sldprt in SolidWorks before uploading. PDFs cannot be used as source files. This native-file requirement enables the granular annotation-level accuracy the platform provides."},
+{q:"Does syncing work over VPN?",a:"Yes, but with caveats. VPN adds latency and may throttle speeds. Split-tunnel VPNs route Bananaz traffic through your home internet, so corporate firewall rules don't apply — but home network limitations do. For best results, sync from the office network. Run diagnostics both on-VPN and on-site to compare."},
+{q:"What are the limitations with PDM Standard (vs. Professional)?",a:"PDM Standard has no API, so Bananaz cannot integrate automatically. You must upload files manually via the SolidWorks add-in, desktop app, or web comparison upload. Auto-sync on check-in, automatic workflow state changes, and seamless PDM features are only available with PDM Professional."},
+{q:"What does 'This file was queued for upload by another user' mean?",a:"This message appears when someone else (or you from a different session) already sent the same file to the upload queue. The file may already be processing. You can click 'Start Upload' or 'Restart Upload' to re-trigger it. If the file is already in the platform, you'll find it via the search bar on go.bananaz.ai. Check the upload queue (right-click tray icon → View Queue) to see if there's a stuck job — use Clear Queue if needed, then retry.",isNew:true},
+{q:"Why do weldment cut-list items cause upload problems?",a:"Cut-list items are features inside a SolidWorks part — they are not actual files. The Bananaz agent may attempt to pull them from PDM as if they were files, which fails. This is a known edge case with weldment parts. The team has implemented filters to ignore cut-list item references during upload. If you encounter this issue, report the specific file to support@bananaz.ai so engineering can verify the filter is working correctly.",isNew:true}
+]},
+{cat:"PDM Workflows & States",icon:"📋",items:[
+{q:"Why am I seeing a 'Change State' popup I can't close?",a:"This occurs when Bananaz syncs PDM workflow information and encounters a state with no valid next transition. The X and Submit buttons may both be unresponsive. Known issue being addressed. Workaround: place test files in a single-state test workflow to bypass it while a permanent fix is developed."},
+{q:"We don't really use PDM workflows. Do we still need them?",a:"PDM requires at least one workflow with one state for checked-in files. If your team doesn't use workflows for document control, ask the Bananaz team to configure the system to ignore transitions. A UI update is coming so multi-step workflows display as a dropdown instead of a stacked list."},
+{q:"How do I set up a test workflow to avoid production conflicts?",a:"In PDM Administration: (1) Create a new single-state workflow. (2) Add a file-path condition for your test folder (e.g., \\Bananaz AI\\). (3) Include trailing wildcards (%) in the path condition. (4) Set permissions for your user group. (5) Add exclusion conditions to other workflows to prevent files from being captured first."},
+{q:"How do I set up workflow approvers and watchers in Bananaz (admin)?",a:"Go to Settings → Administration → Workflow, and select your PDM workflow. Each transition (e.g., Approve, Reject) can be configured individually. Click on a transition to assign Approvers (must approve before the state changes in Bananaz) and Watchers (receive notifications but don't need to approve). You can set whether all approvers must approve or just one. These notifications fire even if the state change happens directly in PDM — not just from Bananaz. Tip: open your PDM workflow side-by-side and configure each transition one at a time. Only admins can see and edit these settings.",isNew:true}
+]},
+{cat:"Design Rules & AI Agent",icon:"🤖",items:[
+{q:"What's the difference between the Design Agent and Design Rules?",a:"The Design Agent (chatbot) is for ad-hoc, on-the-fly questions — comparing BOMs, asking about dimensions, translating notes. Design Rules are persistent checks that run automatically every time you open a file's Insights panel. Use the agent for exploration; use rules for consistent enforcement."},
+{q:"How do I create a new design rule?",a:"Recommended process: (1) Test your prompt in the Design Agent chatbot first. (2) Once satisfied, type 'create a rule' followed by your check description. The agent runs it through a prompt optimizer and proposes a refined rule. (3) Click 'Approve' to add it to your library. Alternative: Settings → Design Rules → manually create with custom prompts, severity levels, and descriptions."},
+{q:"What are 'out-of-box' rules vs. rules needing development?",a:"Out-of-box rules use existing capabilities — text extraction, table parsing, annotation detection. Create them immediately via prompt engineering. Rules needing 'development' require new MCP tools built by the Bananaz engineering team (e.g., external material library lookups). Bananaz also provides a pre-built rule library (spell check, tolerance checks, etc.) you can toggle on from Settings."},
+{q:"How do I write a good rule prompt?",a:"Structure your description with: (1) Objective — what to check. (2) Data requirements — what to analyze ('use the full sheet image'). (3) Pass/fail examples — explicitly state what passes and what fails. (4) Specific terminology your company uses. You can also ask the Design Agent: 'provide me the right prompt to check [requirement]' and it generates a starting point."},
+{q:"How do I make rules more accurate over time?",a:"Test on multiple drawings, not just one. Iterate on language — be specific about locations ('in the isometric view'). Enable image references for visual checks. Use the Design Agent to refine underperforming prompts. Adding pass/fail examples to the description significantly improves accuracy."},
+{q:"Can rules use drawing images for validation?",a:"Yes. Image-based checks (balloons, surface roughness symbols, GD&T frames) can be enabled per rule. Currently requires back-end activation by the Bananaz team. Image rules are more accurate for visual elements but slightly slower. The UI toggle for image usage per rule is on the roadmap."},
+{q:"Why isn't the title block information being detected?",a:"If your title block is a SolidWorks sketch block entity (not a standard table), the API can't extract its text. Blocks can contain any mix of text, images, and symbols. The workaround: enable image-based processing for those rules, which uses visual OCR. Note: image processing won't produce purple highlight annotations — only the image region is identified. This is a common issue across many companies. Many large companies also use sketch blocks for title blocks, so this is actively being improved."},
+{q:"My drawings use a custom font and the preview looks wrong.",a:"Bananaz supports Windows basic fonts by default. Custom fonts (e.g., ISO Norm) may cause misaligned or overlapping text in previews. Contact the Bananaz team — they can add your font to your organization's environment. Per-org configuration done on the back end."},
+{q:"How are BOM balloon checks handled for manual balloons?",a:"Manually placed balloons (not linked via SolidWorks properties) won't work with the standard connected-balloon check. Instead, use a prompt that asks the agent to visually cross-reference BOM items against balloons visible in the image. Requires image-based rule feature to be enabled."},
+{q:"I'm getting false positives. How do I reduce them?",a:"Strategies: (1) Add context ('also check if a general note says dimensions may be taken from CAD data'). (2) Add explicit pass/fail examples to the prompt. (3) Add conditions for specific drawing types or suppliers. (4) Disable irrelevant Bananaz default rules in Settings. (5) For edge cases, consider setting severity to 'suggestion' instead of 'warning' so it doesn't block reviews."},
+{q:"Can I manage different rule sets for different customers?",a:"Grouped rule configurations are on the roadmap. Current workaround: add indicator conditions within each rule (e.g., 'only fail if title block shows Customer X'). This way the rule auto-passes for others. Or manually toggle rules before running checks, though this is less efficient at scale."},
+{q:"Is there a limit on tokens or number of rules?",a:"A typical prompt uses ~200–300 tokens. Most packages include 1 billion tokens — effectively unlimited for rule-based checks even with 50 rules on hundreds of drawings. Token usage only becomes a factor for very heavy use cases like repeatedly attaching large PDFs as context."},
+{q:"Can I create multiple rules in a single prompt?",a:"You can try ('create rules 1 through 6 from this list'), but it works reliably only about 70% of the time. For best results, create rules one at a time."},
+{q:"What does the Bananaz team do when they 'pre-build' rules for us?",a:"If you share your requirements document (Word preferred), the Bananaz team will draft initial prompts for each applicable rule, run them through the prompt optimizer, and install them in your environment. You'll get a notification when they're ready. These are starting points — expect to iterate on accuracy after testing them on your actual drawings."},
+{q:"How is a pre-built rule structured internally?",a:"Each rule has four parts: (1) Name — a unique identifier (can be your item number). (2) Question — a plain-language question the AI answers (e.g., 'Does this drawing have an approver defined?'). (3) Description — a detailed prompt that includes the AI's role, objective, data sources to use, and explicit pass/fail examples. This is the most important part for accuracy. (4) Suggestion template — an optional format for how results are displayed. You can also set severity (warning, suggestion, etc.) and data requirements (title block, full sheet image, notes). The first line defining the AI's role ('You are a senior mechanical engineer') can be omitted — it's already in the system prompt.",isNew:true},
+{q:"Why does the AI confuse the designer name with the approver?",a:"The AI reads all text fields in the title block and may not distinguish between 'Drawn by' and 'Approved by' unless told explicitly. Fix: edit the rule's description to specify that the approver field is separate from the designer field, and list the exact field labels your title block uses (e.g., 'Checked,' 'Approved,' 'Drawn'). Add context like 'The approver is not the same person as the designer — look for a separate approval field in the title block.' Re-run the check after saving changes.",isNew:true}
+]},
+{cat:"Comparisons & Collaboration",icon:"💬",items:[
+{q:"How do version comparisons work?",a:"Select two versions of any file. Bananaz generates a visual diff: added (green), removed (red), modified elements. For 2D, annotation-level changes with zone references. For 3D, geometric differences. Processing time varies by complexity. Export as PDF red-lines or Excel change logs."},
+{q:"How do I compare versions without PDM Professional?",a:"Go to go.bananaz.ai/comparisons/new. Pack-and-Go each version from SolidWorks as a ZIP file (ZIP is required to preserve references). Upload 'original' and 'revised' ZIPs. Bananaz processes both and generates the comparison. You can also use Pack-and-Go snapshots you've saved previously."},
+{q:"How do I tag someone for review?",a:"Open any file on the platform. Use the comment feature with @ followed by the team member's name. They receive notifications via platform, desktop, and email (per their settings). Comments are permanently attached to that version's history."},
+{q:"Can I track who reviewed what and when?",a:"Yes. Every comment, state change, and collaboration event is logged in the file's history tab. You can see which version had activity, who participated, and timestamps. Rule check results per version are also tracked."},
+{q:"Does Bananaz support language translation?",a:"The AI agent is fluent in English, Spanish, German, and many other languages (99%+ accuracy). You can input prompts and receive responses in your preferred language. Translation does NOT currently write back to SolidWorks files. PDF export of translated content is on the roadmap."},
+{q:"What are Design Packages and how do I use them?",a:"Design Packages let you group related files (e.g., all drawings for one product) for easy access and sharing. Create them from the dashboard. Useful for organizing files by project, sharing batches with suppliers, and keeping design reviews organized."},
+{q:"Can I compare two different part numbers (different serial numbers)?",a:"This is only partially supported. You can initiate the comparison from the SolidWorks add-in by selecting two different files, but the comparison will be 'detached' — it won't appear in your comparison history on the platform, so finding it again later is difficult. Full support for cross-serial-number comparisons is on the roadmap.",isNew:true},
+{q:"How do I export a comparison report?",a:"In any comparison view, click the export icon (top-right, near the bell icon). You'll get a downloadable ZIP containing: (1) A PDF of the old version, (2) A PDF of the new version with differences marked in red, and (3) An Excel file listing all changes by category (dimensions, notes, tables, surface finish, etc.). Note: a single combined PDF showing both versions side-by-side is not yet supported. Individual drawing PDFs can also be exported from any file's viewer using the export button.",isNew:true},
+{q:"How do the 3D comparison viewing controls work?",a:"Left mouse button: rotates the part. Right mouse button: pans (moves) the view. Mouse wheel: zoom in/out. Sync Zoom button (lock icon): locks both the old and new models so they rotate together — unlock to manipulate each independently. Toggle Overlay: places both models on top of each other with a slider to fade between old and new. Section Cut: creates a cross-section plane you can drag through the model to inspect internal changes. Double Compare / Flicker mode: click back and forth to rapidly toggle between old and new versions for spotting differences.",isNew:true},
+{q:"Why does the 3D overlay sometimes not show differences?",a:"The 3D difference algorithm compares geometry polygon-by-polygon. When changes are very small (tight tolerances, subtle geometry shifts), the algorithm takes longer and may not return results immediately — it can take several minutes. If two versions are nearly identical, processing takes even longer than when there are obvious changes. A loading indicator for this is being added. If the overlay button remains inactive after several minutes, try creating the comparison from the 3D file's design history directly.",isNew:true},
+{q:"How do I add markup annotations to a drawing in Bananaz?",a:"Open any drawing in the Bananaz viewer. Use the markup tools to draw directly on the drawing — you can change color and line width. After creating a markup, attach a comment to it and tag team members with @. Markups and their comments persist across views, including when you navigate to comparisons. This makes it easy to annotate issues and track before/after.",isNew:true}
+]},
+{cat:"DFM Analysis (Beta)",icon:"🏭",items:[
+{q:"What is DFM analysis and how do I run it?",a:"DFM (Design for Manufacturability) examines 3D models for manufacturing issues. Open a 3D file → Actions → Run DFM Analysis → select technology (CNC Milling, Sheet Metal, etc.) → Run. Processing depends on geometry complexity, not file size. Results appear as insights pinned to specific 3D locations. You get a notification when complete."},
+{q:"What manufacturing technologies does DFM support?",a:"Currently (beta): CNC Milling (milling, drilling, turning sub-categories) and Sheet Metal. Coming soon: Injection Molding and 3D Printing. Each has customizable threshold parameters in Settings → DFM Configurations."},
+{q:"Can I customize DFM thresholds?",a:"Yes. Settings → DFM Configurations. Each technology contains individual rules with adjustable parameters (minimum hole diameters, depth-to-width ratios, edge proximity, etc.). Click 'Reset to Default' to restore standard handbook values. Over 100 individual DFM rules are available."},
+{q:"DFM results seem mixed up or show wrong categories.",a:"Beta feature — occasionally results from one group appear under another's header. Known display issue being fixed. Click individual insights one by one for correct data. Report persistent issues to your CSM."},
+{q:"How many DFM rules are there for sheet metal?",a:"Approximately 32 rules specific to sheet metal, covering hole-to-edge distances, minimum hole diameters, bend radius consistency, small flanges, large tabs, and more. There are also CNC-specific rules for drilling, milling, and turning. The full rule table with parameters can be shared by your CSM on request.",isNew:true}
+]},
+{cat:"Troubleshooting",icon:"🔧",items:[
+{q:"The agent says 'Not connected to PDM' (yellow dot).",a:"Agent can reach internet but not your vault. Check: (1) Logged into PDM? (2) Correct vault in settings? (3) PDM DLLs in correct registry location? (4) Try logging out/in of PDM, restart Bananaz agent. If persistent, run the diagnostics batch file and share output with support."},
+{q:"'Start Processing' button doesn't respond.",a:"File is likely still syncing. Wait for the upload queue to clear completely. Once done, the button should activate. If queue shows complete but button is dead, try refreshing the page."},
+{q:"Jobs are stuck in the queue.",a:"Right-click tray icon → view queue → Cancel stuck jobs. After clearing, the queue accepts new jobs. If a file repeatedly gets stuck, note the filename and report to support@bananaz.ai."},
+{q:"Unexpected files appearing in my queue.",a:"Known issue — system may pull in referenced files beyond what was checked in. May relate to assembly references. Document which files appeared and report to CSM for engineering investigation."},
+{q:"Antivirus (Trend Micro, SentinelOne, etc.) seems to block Bananaz.",a:"Enterprise antivirus can block the agent's queue service or file uploads. SentinelOne is managed remotely — you need your IT provider or internal IT admin to access the SentinelOne management console and whitelist/exclude the Bananaz application. Windows Defender can also interfere: go to Windows Security → App & Browser Control → Exploit Protection → Program Settings, add both Bananaz executables (found via right-clicking the tray icon → Go to file location), and set overrides to Off. If SentinelOne is installed, the console URL is visible in the SentinelOne agent UI — your IT admin needs credentials to make exclusions. A clean reinstall after whitelisting is recommended. This issue can affect some machines but not others because AI-based antivirus makes per-machine decisions."},
+{q:"How do I run the connectivity diagnostics tool?",a:"Batch file (.bat) and PowerShell script (.ps1) are in your Bananaz installation's scripts folder. Double-click or run from Start → Run. Generates a text file with connectivity results. 5+ Mbps is ideal; below 2.5 indicates issues. If the tool fails with 'could not open database,' your registry paths may be wrong — request the updated version that lets you manually specify vault name and path."},
+{q:"How do I contact Bananaz support?",a:"Email support@bananaz.ai or cs@bananaz.ai. Copy your CSM (Derek Lawson) and account rep (Austin Etter). Submit tickets from the platform via the headset icon. Classify: Low / Medium / High / Critical. Hours: 8 AM – 6 PM Pacific. For urgent onboarding issues, use Microsoft Teams."},
+{q:"PDM vault is not selected in the agent settings — files won't upload.",a:"If the vault dropdown in the agent settings is blank or set to the wrong vault, the agent doesn't know where to pull files from — uploads will silently fail. Fix: right-click the Bananaz tray icon → Open Settings → select the correct vault from the dropdown → Save and Close. Then quit the Bananaz agent completely and restart it. Verify by reopening Settings and confirming the vault is still selected. This is one of the most common causes of upload failures and should be the first thing to check when files aren't syncing.",isNew:true},
+{q:"The web dashboard shows a file but clicking it gives a blank page.",a:"This can happen with newly indexed files that haven't been fully processed yet. Try pressing Ctrl+F5 (hard refresh). If the issue persists across multiple new files, it may be a web app display bug — the Bananaz team can push a server-side fix quickly. Report the specific file name and URL to support@bananaz.ai.",isNew:true}
+]},
+{cat:"Architecture & Security",icon:"🌐",items:[
+{q:"What ports does Bananaz use?",a:"Standard ports 80 (HTTP) and 443 (HTTPS). No inbound connections required — all traffic initiated from client side. If behind a restrictive proxy, work with IT and Bananaz support to verify."},
+{q:"How does Bananaz work with replicated PDM servers?",a:"Connects from the client endpoint. Each site with a local archive server runs the agent locally. SQL replication is your infrastructure's job. For slow sites, Bananaz offers server-side sync and bulk migration tools."},
+{q:"Is our data shared or used to train AI?",a:"No. Each organization is isolated. No data shared between customers. Files, rules, collaboration data, and AI processing stay in your environment. Bananaz does not use your data to train models. Documented in platform and contracts."},
+{q:"Can Bananaz staff access our files?",a:"Not by default. Support cannot access your data without explicit written permission. If they need to create rules or troubleshoot, they'll request authorization to create a temporary system user in your environment."}
+]},
+{cat:"Onboarding & Success Metrics",icon:"📊",items:[
+{q:"What does a typical pilot look like?",a:"14-day structure: Day 0 (Kickoff) — installation, workflow mapping, success criteria. Week 1 — training, daily 15–30 min touch points, initial rule setup. End of Week 1 — milestone review. Week 2 — expanded testing, rule iteration, metrics. End of Week 2 — results presentation. Throughout: access to CSM, VP Product, and technical support."},
+{q:"What success metrics should we track?",a:"Common: average design review time (per part number), drawings reviewed per month, first-pass yield rate, number of rework loops per design package, collaboration time per approval cycle. Bananaz can auto-track some of these. Baseline numbers before the pilot make comparisons meaningful."},
+{q:"How long does rule setup take?",a:"Simple rules (revision table present?) — minutes. Complex rules with prompt engineering or image processing — several iterations across multiple sessions. For 50 rules, expect 1–2 weeks of sessions with the Bananaz team. They can pre-build initial prompts from your requirements doc to accelerate."},
+{q:"Where can I find training resources?",a:"YouTube channel with workflow tutorials (links shared during onboarding). CSM provides documentation on guidelines, DFM rules, and features. The Design Agent chatbot itself is a great resource — ask it how to accomplish tasks."},
+{q:"How do I filter the dashboard to see only my activity or a specific team member's?",a:"On the Recent Activity section of the dashboard, click the avatar/initial icon (e.g., 'M' for Moat) on the right side to filter to just your work. To filter by another team member, click the filter options and select the 'Created By' field — choose any user to see only their activity. Click again to clear the filter and see all team activity.",isNew:true},
+{q:"How do I share files or Design Packages with external guests?",a:"From any design file or Design Package, click 'Invite' and enter the external person's email address. They receive an invitation email and can only see the specific files you shared — nothing else in your organization. To revoke access, go back to the sharing settings and remove them. Group-based sharing (e.g., invite an entire distribution list at once) is expected in Q2.",isNew:true}
+]}
+];
+
+let activeCategory=null;
+const container=document.getElementById('faqContainer');
+const pillsDiv=document.getElementById('pills');
+const searchInput=document.getElementById('searchInput');
+const searchCount=document.getElementById('searchCount');
+const emptyState=document.getElementById('emptyState');
+const openItems=new Set();
+
+function chevronSVG(){return '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+
+function render(){
+  const query=searchInput.value.toLowerCase().trim();
+  let totalVisible=0;
+  container.innerHTML='';
+
+  DATA.forEach((section,si)=>{
+    if(activeCategory!==null && activeCategory!==si) return;
+    const matchingItems=section.items.filter(item=>!query||item.q.toLowerCase().includes(query)||item.a.toLowerCase().includes(query));
+    if(matchingItems.length===0) return;
+    totalVisible+=matchingItems.length;
+
+    const secDiv=document.createElement('div');
+    secDiv.className='section';
+    let html=`<div class="sec-head"><span>${section.icon}</span> ${section.cat}<span class="badge">${matchingItems.length} question${matchingItems.length!==1?'s':''}</span></div>`;
+    matchingItems.forEach((item,ii)=>{
+      const key=`${si}-${section.items.indexOf(item)}`;
+      const isOpen=openItems.has(key);
+      const newBadge=item.isNew?'<span class="new-badge">New</span>':'';
+      html+=`<div class="faq-item">
+        <button class="faq-q${isOpen?' open':''}" data-key="${key}" onclick="toggle('${key}')">
+          <span>${item.q}${newBadge}</span>${chevronSVG()}
+        </button>
+        <div class="faq-a${isOpen?' open':''}" id="a-${key}">${item.a}</div>
+      </div>`;
+    });
+    secDiv.innerHTML=html;
+    container.appendChild(secDiv);
+  });
+
+  if(query){
+    searchCount.style.display='block';
+    searchCount.textContent=`${totalVisible} result${totalVisible!==1?'s':''} found`;
+  } else {
+    searchCount.style.display='none';
+  }
+  emptyState.style.display=totalVisible===0?'block':'none';
+}
+
+function toggle(key){
+  if(openItems.has(key)) openItems.delete(key); else openItems.add(key);
+  render();
+}
+
+function buildPills(){
+  const total=DATA.reduce((s,c)=>s+c.items.length,0);
+  const newCount=DATA.reduce((s,c)=>s+c.items.filter(i=>i.isNew).length,0);
+  let html=`<button class="pill${activeCategory===null?' active':''}" onclick="setCategory(null)">All (${total})</button>`;
+  html+=`<button class="pill" onclick="filterNew()" style="background:#ecfdf5;color:#059669;border-color:#a7f3d0">🆕 New (${newCount})</button>`;
+  DATA.forEach((s,i)=>{
+    const catNew=s.items.filter(it=>it.isNew).length;
+    const newInd=catNew>0?' · '+catNew+' new':'';
+    html+=`<button class="pill${activeCategory===i?' active':''}" onclick="setCategory(${i})">${s.icon} ${s.cat} (${s.items.length}${newInd})</button>`;
+  });
+  pillsDiv.innerHTML=html;
+}
+
+function setCategory(i){
+  activeCategory=activeCategory===i?null:i;
+  searchInput.value='';
+  buildPills();
+  render();
+}
+
+function filterNew(){
+  searchInput.value='';
+  activeCategory=null;
+  buildPills();
+  const query='';
+  let totalVisible=0;
+  container.innerHTML='';
+  DATA.forEach((section,si)=>{
+    const matchingItems=section.items.filter(item=>item.isNew);
+    if(matchingItems.length===0) return;
+    totalVisible+=matchingItems.length;
+    const secDiv=document.createElement('div');
+    secDiv.className='section';
+    let html=`<div class="sec-head"><span>${section.icon}</span> ${section.cat}<span class="badge">${matchingItems.length} new question${matchingItems.length!==1?'s':''}</span></div>`;
+    matchingItems.forEach((item)=>{
+      const key=`${si}-${section.items.indexOf(item)}`;
+      const isOpen=openItems.has(key);
+      html+=`<div class="faq-item">
+        <button class="faq-q${isOpen?' open':''}" data-key="${key}" onclick="toggle('${key}')">
+          <span>${item.q}<span class="new-badge">New</span></span>${chevronSVG()}
+        </button>
+        <div class="faq-a${isOpen?' open':''}" id="a-${key}">${item.a}</div>
+      </div>`;
+    });
+    secDiv.innerHTML=html;
+    container.appendChild(secDiv);
+  });
+  searchCount.style.display='block';
+  searchCount.textContent=`${totalVisible} new question${totalVisible!==1?'s':''} added from recent sessions`;
+  emptyState.style.display=totalVisible===0?'block':'none';
+}
+
+searchInput.addEventListener('input',()=>{activeCategory=null;buildPills();render();});
+buildPills();
+render();
+</script>
+</body>
+</html>
