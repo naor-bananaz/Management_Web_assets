@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bananaz Product Vision — Board View</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#ffffff;color:#1a1a2e;min-height:100vh}
+
+.header{text-align:center;padding:32px 16px 0}
+.logo{font-size:24px;font-weight:800;margin-bottom:2px;display:inline-flex;align-items:center;gap:8px;color:#1a1a2e}
+.logo .b-icon{width:28px;height:28px;background:#E8356D;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px}
+.tag{font-size:10px;font-weight:700;color:#E8356D;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
+h1{font-size:24px;font-weight:800;color:#1a1a2e;margin:0 0 4px}
+h1 em{font-style:normal;color:#E8356D}
+.sub{font-size:12px;color:#8c8c9e}
+
+.scroll{overflow-x:auto;padding:24px 16px 0}
+.canvas{position:relative;margin:0 auto}
+svg.lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+svg.lines line{stroke-width:1.2px;stroke-linecap:round}
+
+.tile{position:absolute;border-radius:12px;cursor:pointer;text-align:center;transition:all .2s;user-select:none;z-index:1;display:flex;align-items:center;justify-content:center;white-space:pre-line;line-height:1.3}
+.tile:hover{transform:translateY(-2px)}
+
+/* Root — dark with pink border */
+.tile.root-t{background:#1a1a2e;border:2px solid #E8356D;color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 20px rgba(232,53,109,.15)}
+
+/* Pillars — dark charcoal cards (like the feature section on bananaz.ai) */
+.tile.pillar-t{background:#2a2a3d;border:1px solid #3a3a52;color:#fff;font-size:11px;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.tile.pillar-t:hover{border-color:#E8356D;box-shadow:0 4px 20px rgba(232,53,109,.1)}
+
+/* Leaves — white cards with light borders */
+.tile.leaf-t{background:#fff;border:1px solid #e8e8f0;color:#1a1a2e;font-size:10px;font-weight:600;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.tile.leaf-t:hover{border-color:#E8356D;box-shadow:0 2px 12px rgba(232,53,109,.08)}
+
+.tile.selected{outline:2.5px solid #E8356D;outline-offset:2px}
+.tile.pillar-t.selected{box-shadow:0 0 20px rgba(232,53,109,.2)}
+.tile.leaf-t.selected .lbl{color:#E8356D}
+
+/* Detail panel */
+.detail-wrap{max-width:640px;margin:24px auto 0;padding:0 16px 40px;display:none}
+.detail-wrap.open{display:block}
+.detail{background:#fff;border-radius:14px;padding:22px 26px;animation:up .25s ease;border:1px solid #e8e8f0;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.badge{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.badge .dot{width:7px;height:7px;border-radius:99px;background:#E8356D}
+.badge span{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8356D}
+.detail h2{font-size:18px;font-weight:800;margin:0 0 12px;color:#1a1a2e}
+.sl{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px}
+.desc{font-size:13px;line-height:1.7;color:#6b6b82;margin:0}
+.vbox{border-radius:10px;padding:14px 16px;margin-top:16px;background:#fdf2f5;border:1px solid #f5d0da}
+.vbox p{font-size:13px;line-height:1.7;color:#1a1a2e;margin:0}
+.cls{margin-top:14px;background:none;border:none;font-size:11px;color:#8c8c9e;cursor:pointer;font-weight:600;transition:color .15s}
+.cls:hover{color:#E8356D}
+
+.footer{text-align:center;padding:20px 0 28px;font-size:10px;color:#b0b0c0}
+.footer span{color:#E8356D;font-weight:700}
+
+/* Top accent bar like bananaz.ai */
+.topbar{background:linear-gradient(135deg,#1a1a2e 0%,#2a2a3d 100%);color:#fff;text-align:center;padding:10px 16px;font-size:11px;font-weight:600}
+.topbar em{font-style:normal;color:#E8356D}
+</style>
+</head>
+<body>
+
+<div class="topbar">Product Vision · <em>bananaz</em> Agentic Platform · Board Reference</div>
+
+<div class="header">
+  <div class="tag">Product Vision</div>
+  <h1>The <em>Agentic Layer</em> for<br>Mechanical Engineers</h1>
+  <p class="sub">Click any tile to explore capabilities and investment value</p>
+</div>
+
+<div class="scroll"><div class="canvas" id="canvas"><svg class="lines" id="svg"></svg></div></div>
+
+<div class="detail-wrap" id="dp"><div class="detail" id="dd"></div></div>
+<div class="footer"><span>bananaz.ai</span> · Product Vision · Board Reference</div>
+
+<script>
+var P="#E8356D";// bananaz pink
+var D={
+root:{l:"Bananaz Agentic Layer",c:P,d:"The AI-powered intelligence layer that sits on top of your entire engineering workflow. Every capability below is orchestrated through a unified agentic system that learns from your design data, team patterns, and historical decisions — turning passive document management into an active engineering co-pilot.",v:"Instead of buying 6 point solutions, customers get one platform that compounds in intelligence over time. Every new feature makes every other feature smarter. This is the moat.",t:"AI Core"},
+supply:{l:"Supply Chain\nIntelligence",c:P,d:"AI-driven analysis of design decisions through the lens of procurement, cost, and manufacturability — connecting engineering choices to downstream supply chain impact.",v:"Engineering and procurement typically operate in silos. By surfacing cost and sourcing implications during design — not after release — customers reduce should-cost variance by 15–30% and cut procurement cycle time.",t:"Strategic Pillar"},
+analytics:{l:"Engineering\nAnalytics",c:P,d:"A dedicated analytics agent that aggregates team activity, design quality trends, and operational metrics into actionable dashboards for engineering leadership.",v:"Engineering managers today have zero visibility into team productivity or design quality trends. This gives them the same data-driven management layer that sales and marketing have had for a decade — justifying headcount, identifying bottlenecks, and proving ROI.",t:"Strategic Pillar"},
+platform:{l:"Platform\nIntegration Layer",c:P,d:"MCP-based connectors that plug Bananaz directly into enterprise CAD and PLM systems — making the agentic layer work natively inside existing workflows rather than requiring migration.",v:"The #1 reason PLM tools fail is adoption friction. By integrating at the protocol level with SolidWorks, Creo, Windchill, and Teamcenter, we eliminate the 'another tool' objection.",t:"Strategic Pillar"},
+checker:{l:"Design Checker",c:P,d:"Automated validation engine that reviews engineering designs against configurable rulesets before they move downstream. Catches errors at the earliest, cheapest point in the product lifecycle.",v:"A single drawing error caught in production costs 10–100x more than catching it in design review. This agent replaces manual checklist-driven QA with continuous, real-time validation — directly reducing ECO volume and rework costs.",t:"Strategic Pillar"},
+dfc:{l:"DFC",c:P,d:"Design for Cost analysis that estimates manufacturing cost implications of design choices — material selection, feature complexity, and process routing — at the point of design.",v:"70% of product cost is locked in during design, but engineers rarely have cost visibility. DFC closes this gap, enabling cost-driven design decisions that compound across every product revision.",t:"Capability"},
+procurement:{l:"Procurement\nAnalysis",c:P,d:"Analyzes BOM components against supplier databases, lead times, and cost benchmarks. Surfaces sourcing risks and alternative part suggestions during design.",v:"Connects engineering decisions to real procurement data in real time. Reduces sole-source risk, flags long-lead components before they become schedule blockers.",t:"Capability"},
+trending:{l:"Trending\nDesign Issues",c:P,d:"AI pattern detection across design checks, collaboration threads, and revision history — surfacing recurring issues, common failure modes, and emerging quality trends.",v:"Transforms reactive firefighting into proactive quality management. When a tolerance violation appears across 3 assemblies from 2 engineers, leadership knows before it hits production.",t:"Capability"},
+dashboard:{l:"Manager\nDashboard",c:P,d:"Customer-facing analytics dashboard showing approval cycle times, team activity summaries, and platform usage.",v:"Our customers' managers are the budget holders. Giving them a dashboard that proves platform ROI creates internal champions who renew and expand.",t:"Capability"},
+teamperf:{l:"Team\nPerformance",c:P,d:"Tracks engineering team activity metrics — design velocity, review turnaround, revision frequency, and collaboration patterns.",v:"Gives engineering directors the same visibility into team throughput that product managers have with sprint velocity. Essential for justifying headcount.",t:"Capability"},
+plmmcp:{l:"PLM MCP",c:P,d:"Model Context Protocol connector for PLM systems (Windchill, Teamcenter). Syncs design history, vault data, and lifecycle states.",v:"Enterprise customers won't abandon their PLM investment. PLM MCP makes Bananaz additive — enhances Windchill/Teamcenter rather than competing.",t:"Capability"},
+cadmcp:{l:"CAD MCP",c:P,d:"Model Context Protocol connector for CAD systems (SolidWorks, Creo, NX). Enables bi-directional communication between Bananaz agents and native CAD.",v:"Engineers live in their CAD tool 8+ hours/day. CAD MCP means Bananaz intelligence flows natively — no tab-switching, no adoption friction.",t:"Capability"},
+compliance:{l:"Compliance\nReview",c:P,d:"Automated checks against industry standards (ISO, FDA, MIL-SPEC) and customer-specific requirements.",v:"Medical device and defense customers spend 20–40% of design time on compliance documentation. Automating this directly reduces time-to-submission and audit risk.",t:"Capability"},
+dfm:{l:"DFM\nAnalysis",c:P,d:"AI-powered Design for Manufacturability analysis covering CNC, sheet metal, injection molding, and 3D printing.",v:"DFM errors caught after tooling commitment cost $50k–$500k+ per instance. The single highest-ROI feature in the platform.",t:"Capability"},
+qa:{l:"QA\nInspection",c:P,d:"Intelligent inspection planning from design intent, GD&T callouts, and historical rejection data.",v:"Bridges the gap between design engineering and quality — reducing first-article inspection failures. Directly lowers scrap rates.",t:"Capability"},
+simulation:{l:"Simulation\nTools",c:P,d:"Lightweight, AI-assisted simulation — stress, thermal, and flow analysis without leaving Bananaz.",v:"Full FEA tools cost $15k–$50k/seat. Embedding lightweight simulation democratizes analysis — more engineers validate more designs earlier.",t:"Capability"},
+tolerance:{l:"Tolerance\nStack-Up",c:P,d:"Automated tolerance stack-up analysis — worst-case and statistical accumulation across assembly chains.",v:"Manual tolerance analysis takes hours per assembly. Automating it prevents costly fit/function failures in production.",t:"Capability"},
+drafting:{l:"2D Drafting",c:P,d:"Automated generation of 2D production drawings from 3D models — views, dimensions, BOM tables, title blocks.",v:"Drafting consumes 15–25% of design time. Automating it frees engineers for higher-value work.",t:"Sub-capability"},
+mbd:{l:"2D to MBD\nConversion",c:P,d:"Automated conversion of 2D drawings into Model-Based Definition format.",v:"Millions of legacy 2D drawings exist. Automating this conversion eliminates years of manual rework.",t:"Sub-capability"},
+modeling:{l:"3D Modelling",c:P,d:"AI-assisted 3D modeling — auto-generating geometry from specifications and suggesting design patterns.",v:"Even a 20% productivity gain on modeling translates to hundreds of engineering hours saved per quarter.",t:"Sub-capability"}
+};
+
+var tree={id:"root",kids:[
+  {id:"supply",kids:[{id:"dfc"},{id:"procurement"}]},
+  {id:"analytics",kids:[{id:"trending"},{id:"dashboard"},{id:"teamperf"}]},
+  {id:"platform",kids:[{id:"plmmcp"},{id:"cadmcp",kids:[{id:"drafting"},{id:"mbd"},{id:"modeling"}]}]},
+  {id:"checker",kids:[{id:"compliance"},{id:"dfm"},{id:"qa"},{id:"simulation"},{id:"tolerance"}]}
+]};
+
+var GAP_P=16,GAP_L=8,GAP_S=8;
+var RW=170,RH=40;
+var PW=110,PH=42;
+var LW=88,LH=38;
+var S1=28,S2=24,S3=22;
+var Y0=0,Y1,Y2,Y3;
+var sel=null,tileEls={};
+
+Y1=Y0+RH+S1;Y2=Y1+PH+S2;Y3=Y2+LH+S3;
+
+function mw(p){
+  var k=p.kids||[];if(!k.length)return PW;
+  var w=0;
+  k.forEach(function(c,i){
+    var cw=LW;
+    if(c.kids&&c.kids.length)cw=Math.max(LW,c.kids.length*LW+(c.kids.length-1)*GAP_S);
+    w+=cw;if(i<k.length-1)w+=GAP_L;
+  });
+  return Math.max(PW,w);
+}
+
+function build(){
+  var cv=document.getElementById("canvas"),sg=document.getElementById("svg");
+  var pw=tree.kids.map(mw);
+  var tw=0;pw.forEach(function(w,i){tw+=w;if(i<pw.length-1)tw+=GAP_P});
+  tw=Math.max(tw,800);
+  var ch=Y3+LH+28;
+  cv.style.width=tw+"px";cv.style.height=ch+"px";
+  sg.setAttribute("viewBox","0 0 "+tw+" "+ch);sg.setAttribute("width",tw);sg.setAttribute("height",ch);
+
+  var ln=[];
+  mt("root",(tw-RW)/2,Y0,RW,RH,"root-t",14);
+
+  var sx=(tw-pw.reduce(function(a,b){return a+b},0)-(pw.length-1)*GAP_P)/2;
+  var cx=sx;
+
+  tree.kids.forEach(function(p,pi){
+    var ppw=pw[pi],px=cx+(ppw-PW)/2,pcx=cx+ppw/2;
+    mt(p.id,px,Y1,PW,PH,"pillar-t",11);
+    ln.push({x1:tw/2,y1:Y0+RH,x2:pcx,y2:Y1,c:"#3a3a52"});
+
+    var kids=p.kids||[];
+    if(kids.length){
+      var lws=kids.map(function(k){
+        if(k.kids&&k.kids.length)return Math.max(LW,k.kids.length*LW+(k.kids.length-1)*GAP_S);
+        return LW;
+      });
+      var ltw=0;lws.forEach(function(w,i){ltw+=w;if(i<lws.length-1)ltw+=GAP_L});
+      var lx=cx+(ppw-ltw)/2;
+
+      kids.forEach(function(k,ki){
+        var kw=lws[ki],tx=lx+(kw-LW)/2,kcx=lx+kw/2;
+        mt(k.id,tx,Y2,LW,LH,"leaf-t",10);
+        ln.push({x1:pcx,y1:Y1+PH,x2:kcx,y2:Y2,c:"#d0d0de"});
+
+        if(k.kids&&k.kids.length){
+          var stw=k.kids.length*LW+(k.kids.length-1)*GAP_S;
+          var ssx=lx+(kw-stw)/2;
+          k.kids.forEach(function(s,si){
+            var stx=ssx+si*(LW+GAP_S),scx=stx+LW/2;
+            mt(s.id,stx,Y3,LW,LH,"leaf-t",10);
+            ln.push({x1:kcx,y1:Y2+LH,x2:scx,y2:Y3,c:"#d0d0de"});
+          });
+        }
+        lx+=kw+GAP_L;
+      });
+    }
+    cx+=ppw+GAP_P;
+  });
+
+  // Draw lines
+  var gs={};
+  ln.forEach(function(l){
+    var k=l.x1+","+l.y1+","+l.c;
+    if(!gs[k])gs[k]={x1:l.x1,y1:l.y1,c:l.c,ts:[]};
+    gs[k].ts.push({x2:l.x2,y2:l.y2});
+  });
+  var s="";
+  Object.keys(gs).forEach(function(k){
+    var g=gs[k],my=g.y1+(g.ts[0].y2-g.y1)/2;
+    if(g.ts.length===1){
+      var t=g.ts[0];
+      if(Math.abs(g.x1-t.x2)<1){
+        s+='<line x1="'+g.x1+'" y1="'+g.y1+'" x2="'+t.x2+'" y2="'+t.y2+'" stroke="'+g.c+'" opacity=".35"/>';
+      }else{
+        s+='<line x1="'+g.x1+'" y1="'+g.y1+'" x2="'+g.x1+'" y2="'+my+'" stroke="'+g.c+'" opacity=".35"/>';
+        s+='<line x1="'+g.x1+'" y1="'+my+'" x2="'+t.x2+'" y2="'+my+'" stroke="'+g.c+'" opacity=".35"/>';
+        s+='<line x1="'+t.x2+'" y1="'+my+'" x2="'+t.x2+'" y2="'+t.y2+'" stroke="'+g.c+'" opacity=".35"/>';
+      }
+    }else{
+      s+='<line x1="'+g.x1+'" y1="'+g.y1+'" x2="'+g.x1+'" y2="'+my+'" stroke="'+g.c+'" opacity=".35"/>';
+      var xs=g.ts.map(function(t){return t.x2}).sort(function(a,b){return a-b});
+      s+='<line x1="'+xs[0]+'" y1="'+my+'" x2="'+xs[xs.length-1]+'" y2="'+my+'" stroke="'+g.c+'" opacity=".35"/>';
+      g.ts.forEach(function(t){
+        s+='<line x1="'+t.x2+'" y1="'+my+'" x2="'+t.x2+'" y2="'+t.y2+'" stroke="'+g.c+'" opacity=".35"/>';
+      });
+    }
+  });
+  sg.innerHTML=s;
+}
+
+function mt(id,x,y,w,h,cls,fs){
+  var n=D[id],el=document.createElement("div");
+  el.className="tile "+cls;
+  el.style.cssText="left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;font-size:"+fs+"px";
+  el.dataset.id=id;
+  el.innerHTML='<span class="lbl">'+n.l.replace(/\n/g,"<br>")+'</span>';
+  el.onclick=function(e){e.stopPropagation();pick(sel===id?null:id)};
+  document.getElementById("canvas").appendChild(el);
+  tileEls[id]=el;
+}
+
+function pick(id){
+  sel=id;
+  Object.keys(tileEls).forEach(function(k){tileEls[k].classList.toggle("selected",k===id)});
+  var dp=document.getElementById("dp"),dd=document.getElementById("dd");
+  if(!id){dp.classList.remove("open");return}
+  dp.classList.add("open");
+  var n=D[id];
+  dd.innerHTML=
+    '<div class="badge"><div class="dot"></div><span>'+n.t+'</span></div>'+
+    '<h2>'+n.l.replace(/\n/g," ")+'</h2>'+
+    '<div style="margin-bottom:16px"><div class="sl" style="color:#8c8c9e">What it does</div><p class="desc">'+n.d+'</p></div>'+
+    '<div class="vbox"><div class="sl" style="color:#E8356D">Why it\'s worth the investment</div><p>'+n.v+'</p></div>'+
+    '<button class="cls" onclick="pick(null)">\u2190 Close</button>';
+  dp.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+build();
+</script>
+</body>
+</html>
