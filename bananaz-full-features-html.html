@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bananaz — Plans & Features (Complete)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;background:#fff;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 16px}
+.header{text-align:center;margin-bottom:40px}
+.header h1{font-size:36px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.header h1 span{color:#FF7F7F}
+.header p{color:#64748b;font-size:16px;max-width:600px;margin:0 auto}
+.toggle-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:32px}
+.toggle-label{font-size:14px;cursor:pointer;user-select:none}
+.toggle-label.active{color:#0f172a;font-weight:700}
+.toggle-label.inactive{color:#94a3b8;font-weight:400}
+.toggle-track{width:48px;height:26px;border-radius:13px;cursor:pointer;position:relative;transition:background .2s}
+.toggle-knob{width:20px;height:20px;border-radius:10px;background:#fff;position:absolute;top:3px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.cards{display:flex;gap:14px;margin-bottom:48px;overflow-x:auto;padding-bottom:8px}
+.card{flex:1 0 220px;min-width:220px;border:1px solid #e2e8f0;border-radius:12px;padding:28px 20px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;background:#fff}
+.card.popular{border:2px solid #8b5cf6;background:#faf5ff}
+.popular-badge{background:#8b5cf6;color:#fff;font-size:10px;font-weight:800;padding:4px 14px;border-radius:6px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.card-tier{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.card-sub{font-size:12px;color:#94a3b8;margin-bottom:16px;min-height:18px}
+.card-price{font-size:30px;font-weight:800;color:#0f172a;line-height:1}
+.card-price-sub{font-size:14px;font-weight:600;color:#374151;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead tr{border-bottom:2px solid #e2e8f0}
+thead th{padding:12px 4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;text-align:center}
+thead th:first-child{text-align:left;width:46%;padding-left:8px}
+.section-row{cursor:pointer;background:#f8fafc;border-top:2px solid #e2e8f0}
+.section-row td{padding:14px 8px;font-weight:700;font-size:14px;color:#0f172a}
+.section-arrow{margin-right:8px;display:inline-block;transition:transform .2s;color:#94a3b8;font-size:16px}
+.section-arrow.open{transform:rotate(90deg)}
+.hidden-count{font-size:11px;color:#94a3b8;font-weight:400;margin-left:8px}
+.feat-row td{padding:10px 4px;text-align:center;vertical-align:top}
+.feat-row td:first-child{text-align:left;padding-left:24px;padding-right:8px;color:#374151;cursor:pointer}
+.feat-arrow{font-size:14px;color:#c0c0c0;display:inline-block;transition:transform .2s;margin-right:6px}
+.feat-arrow.open{transform:rotate(90deg)}
+.feat-name{font-weight:500}
+.feat-desc{padding:0 8px 12px 44px}
+.feat-desc-inner{font-size:13px;color:#6b7280;line-height:1.6;background:#f9fafb;padding:10px 14px;border-radius:6px;border-left:3px solid #e2e8f0}
+.check{color:#10b981;font-weight:700;font-size:18px}
+.dash{color:#d4d4d4;font-size:16px}
+.text-val{font-size:12px;color:#374151;font-weight:500;line-height:1.3}
+.legend{margin-top:32px;padding:20px;background:#f8fafc;border-radius:8px;font-size:13px;color:#64748b;display:flex;gap:24px;flex-wrap:wrap}
+.footer{margin-top:24px;font-size:12px;color:#94a3b8;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>Bananaz <span>Plans & Features</span></h1>
+    <p>AI-powered design review for engineering teams. Complete feature list.</p>
+  </div>
+  <div class="cards" id="cards"></div>
+  <div class="toggle-row">
+    <span class="toggle-label active" id="lblKey" onclick="setView(false)">Key Features</span>
+    <div class="toggle-track" style="background:#d4d4d4" id="viewTrack" onclick="toggleView()">
+      <div class="toggle-knob" style="left:3px" id="viewKnob"></div>
+    </div>
+    <span class="toggle-label inactive" id="lblAll" onclick="setView(true)">All Features</span>
+  </div>
+  <div style="overflow-x:auto">
+    <table>
+      <thead><tr>
+        <th style="color:#64748b">Feature</th>
+        <th style="color:#3b82f6">Standard</th>
+        <th style="color:#8b5cf6">Pro</th>
+        <th style="color:#f59e0b">Enterprise</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span><strong class="check">✓</strong> Included</span>
+    <span><strong class="dash">—</strong> Not available</span>
+    <span style="color:#b0b0b0">Click any feature name to see its description</span>
+  </div>
+  <div class="footer">
+    <p>All prices in USD. Annual billing. Pilot engagements available — contact sales for details.</p>
+    <p>Reviewer seats provide read and comment access for internal collaborators participating in design reviews.</p>
+    <p>Additional seats can be added at any time at the per-user rate for your tier. No minimum blocks required.</p>
+  </div>
+</div>
+<script>
+var showAll=false,sectionOpen={},featOpen={},tierKeys=["standard","pro","enterprise"];
+var tiers=[
+  {name:"Standard",subtitle:"Small design teams",color:"#3b82f6",pkg:{users:4,total:"$10,000",add:"$2,500"}},
+  {name:"Pro",subtitle:"Full AI + PDM workflow",color:"#8b5cf6",popular:true,pkg:{users:10,total:"$29,000",add:"$2,900"}},
+  {name:"Enterprise",subtitle:"Multi-vault, SSO, custom",color:"#f59e0b",custom:true}
+];
+var sections=[
+  {name:"Pricing & Usage",imp:true,features:[
+    {name:"Base Package (Annual)",desc:"Annual subscription cost based on the included user allocation for each tier.",standard:"$10,000 (up to 4)",pro:"$29,000 (up to 10)",enterprise:"Custom",imp:true},
+    {name:"Per-User Cost",desc:"Annual cost per seat. Additional users can be added at any time at the per-user rate.",standard:"$2,500/yr",pro:"$2,900/yr",enterprise:"Custom",imp:true},
+    {name:"Additional Seats",desc:"Add seats beyond the base package at the per-user rate. No minimum blocks required.",standard:"$2,500/seat",pro:"$2,900/seat",enterprise:"Custom",imp:true},
+    {name:"5 Reviewers Package",desc:"Add-on package of 5 reviewer seats for internal collaborators who need read and comment access to design reviews.",standard:"—",pro:"$2,500",enterprise:"Custom",imp:true},
+    {name:"Storage",desc:"Cloud storage for uploaded CAD files, drawings, and design packages.",standard:"100 GB",pro:"1 TB",enterprise:"Custom",imp:true},
+    {name:"Bananaz Tokens",desc:"Shared token budget powering Design Agent, Change Descriptions, DFM Analysis, and Design Checks. Resets annually. Pool usage visible to workspace admins.",standard:"—",pro:"1B",enterprise:"Custom",imp:true},
+    {name:"Additional 1B Tokens",desc:"Add-on token expansion for teams that need more AI capacity.",standard:"—",pro:"$7,200",enterprise:"Custom",imp:true},
+    {name:"Additional 1 TB Storage",desc:"Add-on storage expansion for teams that need more capacity.",standard:"—",pro:"$1,000",enterprise:"Custom",imp:true}
+  ]},
+  {name:"Security & Administration",imp:true,features:[
+    {name:"Password Protection",desc:"Secure access with encrypted password requirements for all accounts.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"User Management",desc:"Add, remove, and manage team members, roles, and permissions from a central admin panel.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Workflow Management",desc:"Configure approval workflows and design review processes to match your engineering change process.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Guest Access Permissions",desc:"Grant external stakeholders controlled access to specific designs without full platform access.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Desktop Agent Installation",desc:"Centrally managed desktop agent deployment for connecting local CAD environments to Bananaz.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Multi-Factor Authentication",desc:"Enhanced security with two-factor verification for all user logins.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Single Sign-On (SSO)",desc:"Seamless authentication through your organization's identity provider (Okta, Azure AD, etc.).",standard:false,pro:false,enterprise:true,imp:true},
+    {name:"Role Assignment (SCIM)",desc:"Automated user provisioning and role management via SCIM protocol for directory sync.",standard:false,pro:false,enterprise:true,imp:false},
+    {name:"Security & Compliance Review",desc:"Dedicated cybersecurity assessment process including completed security questionnaires, architecture documentation, and compliance reviews for your InfoSec and procurement teams.",standard:false,pro:false,enterprise:true,imp:false}
+  ]},
+  {name:"PDM Integration — SolidWorks PDM",imp:true,features:[
+    {name:"Design History Sync",desc:"Automatically sync design version history from your SolidWorks PDM vault into Bananaz.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Instant Version Retrieval",desc:"Retrieve specific file versions from PDM with one click for immediate viewing or comparison.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"In-Vault Search",desc:"Search and access files directly from your SolidWorks PDM vault without leaving Bananaz.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Workflow Structure Inheritance",desc:"Mirror your SolidWorks PDM workflow states (e.g., WIP, In Review, Released) directly in Bananaz.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Bi-Directional Workflow Actions",desc:"Approve, reject, or transition design states in both Bananaz and SolidWorks PDM simultaneously.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Live Event Sync",desc:"Real-time synchronization of PDM check-ins, state changes, and revisions as they happen.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Multiple Vaults Syncing",desc:"Connect and sync files from multiple SolidWorks PDM vaults simultaneously in one Bananaz workspace.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Multiple Workflows Support",desc:"Mirror different workflow structures from multiple projects or vaults concurrently.",standard:false,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"PDM Integration — PTC Windchill",imp:true,features:[
+    {name:"Design History Sync",desc:"Automatically sync design version history from your Windchill workspace into Bananaz.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Instant Version Retrieval",desc:"Retrieve specific file versions from Windchill with one click for immediate viewing or comparison.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"In-Vault Search",desc:"Search and access files directly from your Windchill workspace without leaving Bananaz.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Workflow Structure Inheritance",desc:"Mirror your Windchill lifecycle states and promotion workflows directly in Bananaz.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Bi-Directional Workflow Actions",desc:"Approve, reject, or transition design states in both Bananaz and Windchill simultaneously.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Live Event Sync",desc:"Real-time synchronization of Windchill check-ins, lifecycle transitions, and revisions.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Multiple Vaults Syncing",desc:"Connect and sync files from multiple Windchill product contexts in one Bananaz workspace.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Multiple Workflows Support",desc:"Mirror different lifecycle and workflow structures from multiple Windchill contexts concurrently.",standard:false,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"SolidWorks Add-In",imp:false,features:[
+    {name:"Auto Update",desc:"Automatically update the Bananaz add-in to the latest version without manual intervention.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Manual File Upload",desc:"Upload 2D and 3D CAD files directly from your SolidWorks environment to Bananaz.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Local File Comparison",desc:"Compare local working files against previous versions without uploading to PDM first.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Batch Upload & Comparison",desc:"Process multiple files simultaneously — upload and compare entire assemblies in one operation.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Vault Integration Settings",desc:"Configure PDM vault connection, sync preferences, and file mapping rules from within SolidWorks.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Viewing & Comparison",imp:true,features:[
+    {name:"2D Drawing Viewer",desc:"View technical drawings with pan, zoom, and layer control in your browser.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"3D Model Viewer",desc:"Interactive 3D viewer with rotation, zoom, and measurement tools for part and assembly files.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"3D Assembly Viewer",desc:"Navigate complex assemblies with exploded views, transparency, and component isolation.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"2D Interaction Tools",desc:"Advanced viewing tools including synced zoom, smart zoom, and highlight differences mode.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"2D Annotation Change Detection",desc:"Automatically detect changes in dimensions, notes, tolerances, and callouts between revisions.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"2D Geometry Comparison",desc:"Smart alignment and overlay of drawing views to visually highlight geometry differences.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"3D Assembly Tree Comparison",desc:"Identify added, removed, or modified components across assembly revisions with tree-level diffing.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Timeline Comparison",desc:"Select and compare any two versions directly from the design timeline for instant side-by-side review.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"3D Visualization Tools",desc:"Section cuts, transparency control, and 3D overlay mode for detailed geometric comparisons.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"AI & Design Analysis",imp:true,features:[
+    {name:"AI Change Description",desc:"Automatically generated plain-language summaries of what changed between design revisions.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"2D Design Checks",desc:"AI-powered validation of drawing standards and best practices against industry conventions.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Design Agent Chat",desc:"Ask natural-language questions about your designs — dimensions, materials, changes, and more.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"3D DFM Analysis",desc:"Automated manufacturability analysis for CNC, sheet metal, injection molding, and other processes.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Custom Design Rules",desc:"Create company-specific validation rules (naming conventions, tolerance standards, etc.) for automated checking.",standard:false,pro:true,enterprise:true,imp:true},
+    {name:"Design Rules Permissions",desc:"Control who can create, edit, and publish design validation rules across your organization.",standard:false,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Collaboration & Communication",imp:true,features:[
+    {name:"2D Freehand Markups",desc:"Draw freehand annotations, arrows, and shapes directly on drawings during review.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"2D Comment Threads",desc:"Threaded discussions anchored to specific drawing locations for contextual feedback.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"3D Pinned Comments",desc:"Attach comments to specific 3D model locations — feedback stays anchored as you rotate the model.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Mentions & Tagging",desc:"Notify team members with @mentions in comments to route attention and track follow-ups.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Resolve Comments",desc:"Mark comment threads as resolved to track review completion and outstanding action items.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Data, Sharing & Export",imp:false,features:[
+    {name:"Design Version History",desc:"Timeline view of all design revisions and changes with metadata and comparison access.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Extracted Item List (BOM/Dims)",desc:"Tabular view of dimensions, notes, tolerances, and BOM data extracted automatically from drawings.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Design Packages",desc:"Bundle related files, drawings, and documents into organized packages for structured review.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"External Package Sharing",desc:"Share complete design packages with suppliers and partners via secure external links.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Design File Sharing (Links)",desc:"Generate shareable links to individual files with optional expiration and password protection.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Incoming Inspection Report",desc:"Generate inspection checklists from drawings for incoming quality control workflows.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"2D Differences Report",desc:"Export detailed change logs with categorized before/after annotations in spreadsheet format.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"2D Redline Report",desc:"PDF export with visual markup of all detected changes for offline review and sign-off.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Export PDF / PNG",desc:"Download drawings, comparisons, and markups as high-resolution PDF or PNG files.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Batch Export",desc:"Download all files in a design package in one operation as a ZIP archive.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Dashboard & Workspace",imp:false,features:[
+    {name:"Design Package Dashboard",desc:"Quick access to active design packages, their review status, and pending actions.",standard:true,pro:true,enterprise:true,imp:true},
+    {name:"Activity Dashboard",desc:"Stay updated on recent changes, uploads, comparisons, and team activity across your workspace.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Communication Dashboard",desc:"View unread messages, comment threads, and @mentions in a single consolidated view.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Action Items Dashboard",desc:"Track pending approvals, review assignments, and tasks requiring your attention.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Web Uploader",desc:"Upload entire design packages via drag-and-drop ZIP files directly in the browser.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Notifications & Settings",imp:false,features:[
+    {name:"Email Notifications",desc:"Receive email updates for comments, mentions, approvals, and design changes.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Desktop Notifications",desc:"Get real-time browser/desktop alerts for important events without checking your inbox.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Change Detection Preferences",desc:"Customize sensitivity thresholds and types of changes to detect in 2D drawing comparisons.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"UI Preferences",desc:"Personalize your interface theme, default layout, comparison mode, and viewer settings.",standard:true,pro:true,enterprise:true,imp:false},
+    {name:"Design Rules Settings",desc:"Configure global design validation standards and rule sets for your organization.",standard:true,pro:true,enterprise:true,imp:false}
+  ]},
+  {name:"Support & Services",imp:true,features:[
+    {name:"Customer Support",desc:"Direct access to the Bananaz support team for troubleshooting, questions, and guidance.",standard:"Email, 24hr",pro:"Email, 8hr",enterprise:"Custom",imp:true},
+    {name:"Online Training",desc:"Live virtual training sessions for your team covering core features and best practices.",standard:"$1,000",pro:"$2,500",enterprise:"Custom",imp:false},
+    {name:"Onsite Training",desc:"In-person training at your facility, tailored to your engineering workflows and CAD environment.",standard:"—",pro:"$5,000",enterprise:"Custom",imp:false},
+    {name:"Installation Support",desc:"Dedicated deployment assistance including add-in installation, PDM configuration, and environment setup.",standard:"—",pro:"$2,500",enterprise:"Custom",imp:false}
+  ]}
+];
+sections.forEach(function(s){sectionOpen[s.name]=true;});
+function cell(v){
+  if(v===true) return '<span class="check">✓</span>';
+  if(v===false) return '<span class="dash">—</span>';
+  if(typeof v==="string"&&v!=="—") return '<span class="text-val">'+v+'</span>';
+  return '<span class="dash">—</span>';
+}
+function renderCards(){
+  var h="";
+  tiers.forEach(function(t){
+    var cls=t.popular?"card popular":"card";
+    h+='<div class="'+cls+'">';
+    if(t.popular) h+='<div class="popular-badge">Most Popular</div>';
+    h+='<div class="card-tier" style="color:'+t.color+';margin-top:'+(t.popular?'0':'8px')+'">'+t.name+'</div>';
+    h+='<div class="card-sub">'+t.subtitle+'</div>';
+    if(t.custom){
+      h+='<div class="card-price">Custom</div>';
+      h+='<div class="card-price-sub">Contact sales for pricing</div>';
+    } else {
+      h+='<div class="card-price">'+t.pkg.total+'</div>';
+      h+='<div class="card-price-sub">per year · up to '+t.pkg.users+' users</div>';
+      h+='<div style="margin-top:14px;padding-top:10px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;width:100%">Additional seats: '+t.pkg.add+'/user/yr</div>';
+    }
+    h+='</div>';
+  });
+  document.getElementById("cards").innerHTML=h;
+}
+function renderTable(){
+  var html="";
+  var visSec=showAll?sections:sections.filter(function(s){return s.imp;});
+  visSec.forEach(function(sec){
+    var visF=showAll?sec.features:sec.features.filter(function(f){return f.imp;});
+    if(!showAll&&visF.length===0) return;
+    var hidden=sec.features.length-visF.length;
+    var open=sectionOpen[sec.name];
+    html+='<tr class="section-row" onclick="toggleSection(\''+sec.name.replace(/'/g,"\\'")+'\')">';
+    html+='<td colspan="4"><span class="section-arrow'+(open?' open':'')+'">›</span>'+sec.name;
+    if(!showAll&&hidden>0) html+='<span class="hidden-count">('+hidden+' more in full view)</span>';
+    html+='</td></tr>';
+    if(open){
+      visF.forEach(function(f,i){
+        var fid=sec.name+"__"+i;
+        var fOpen=featOpen[fid];
+        html+='<tr class="feat-row" style="border-bottom:'+(fOpen?'none':'1px solid #f1f5f9')+'">';
+        html+='<td onclick="toggleFeat(\''+fid.replace(/'/g,"\\'")+'\')">';
+        html+='<span class="feat-arrow'+(fOpen?' open':'')+'">›</span>';
+        html+='<span class="feat-name">'+f.name+'</span>';
+        html+='</td>';
+        tierKeys.forEach(function(k){html+='<td>'+cell(f[k])+'</td>';});
+        html+='</tr>';
+        if(fOpen){
+          html+='<tr style="border-bottom:1px solid #f1f5f9"><td colspan="4" class="feat-desc"><div class="feat-desc-inner">'+f.desc+'</div></td></tr>';
+        }
+      });
+    }
+  });
+  document.getElementById("tbody").innerHTML=html;
+}
+function setView(v){
+  showAll=v;
+  document.getElementById("viewTrack").style.background=v?"#8b5cf6":"#d4d4d4";
+  document.getElementById("viewKnob").style.left=v?"25px":"3px";
+  document.getElementById("lblAll").className="toggle-label "+(v?"active":"inactive");
+  document.getElementById("lblKey").className="toggle-label "+(v?"inactive":"active");
+  renderTable();
+}
+function toggleView(){setView(!showAll);}
+function toggleSection(n){sectionOpen[n]=!sectionOpen[n];renderTable();}
+function toggleFeat(id){featOpen[id]=!featOpen[id];renderTable();}
+renderCards();
+renderTable();
+</script>
+</body>
+</html>
